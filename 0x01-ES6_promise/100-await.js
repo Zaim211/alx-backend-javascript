@@ -5,7 +5,7 @@ export default async function asyncUploadUser() {
     const promise1 = await uploadPhoto();
     const promise2 = await createUser();
 
-    return{ photo: promise1, user: promise2 };
+    return { photo: promise1, user: promise2 };
   } catch (error) {
     return { photo: null, user: null };
   }
