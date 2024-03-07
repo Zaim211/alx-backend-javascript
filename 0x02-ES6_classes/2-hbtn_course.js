@@ -37,7 +37,7 @@ export default class HolbertonCourse {
     if (!Array.isArray(value)) {
       throw new TypeError('Students must be an array');
     }
-  // This loop is intended to iterate over each element of the value array, which contains the students names.
+  // This loop is intended to iterate over each element of the value array.
     for ( let j = 0; j < value.length; j++) {
       if (typeof value[j] !== 'string') { throw new TypeError('Students must be an array of strings'); }
     }
