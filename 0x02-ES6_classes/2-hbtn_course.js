@@ -30,7 +30,7 @@ export default class HolbertonCourse {
   set students(value) {
     if (!Array.isArray(value)) { throw new TypeError('Students must be an array'); }
       this._students = value;
-  //This loop is intended to iterate over each element of the value array, which contains the students' names.
+  // This loop is intended to iterate over each element of the value array, which contains the students names.
     for ( let j = 0; j < value.length; j++) {
       if (typeof value[j] !== 'string') { throw new TypeError('Students must be an array of strings'); }
     }
