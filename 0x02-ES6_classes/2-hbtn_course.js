@@ -33,6 +33,6 @@ export default class HolbertonCourse {
     for (let j = 0; j < value.length; j++) {
       if (typeof value[j] !== 'string') { throw new TypeError('Students must be an array of strings'); }
     }
-    this._students = value;
+      this._students = value;
   }
 }
