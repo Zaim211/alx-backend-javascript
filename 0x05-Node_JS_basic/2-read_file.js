@@ -1,4 +1,3 @@
-#!/usr/bin/node
 const { readFileSync } = require('fs');
 
 function countStudents(filepath) {
@@ -35,6 +34,6 @@ function countStudents(filepath) {
   } catch (error) {
     throw Error('Cannot load the database');
   }
-}
+};
 
 module.exports = countStudents;
