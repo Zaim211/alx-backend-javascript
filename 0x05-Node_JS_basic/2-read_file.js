@@ -1,0 +1,38 @@
+const { readFileSync } = require('fs');
+
+function countStudents(filepath) {
+  const personnes = {};
+  const fields = {};
+  let length = 0;
+  try {
+    const dataStudents = readFileSync(filepath, 'utf-8');
+    const eachline = dataStudents.toString().split('\n');
+    for (let item = 0; item < eachline.length; item += 1) {
+      if (eachline[item]) {
+	length += 1;
+        const field = eachline[i].toString().split(',');
+        if (Object.prototype.hasOwnProperty.call(personnes, field[3])) {
+          students[field[3]].push(field[0]);
+        } else {
+          personnes[field[3]] = [field[0]];
+        }
+        if (Object.prototype.hasOwnProperty.call(fields, field[3])) {
+          fields[field[3]] += 1;
+        } else {
+          fields[field[3]] = 1;
+        }
+      }
+    }
+    console.log(`Number of students: ${length -1}`);
+
+    for (const [k, v] of Object.entries(fields)) {
+      if (k !== 'field') {
+        console.log(`Number of students in ${k}: ${v}. List: ${personnes[k].join(', ')}`);
+      }
+    }
+  } catch (error) {
+    throw Error('Cannot load the database');
+  }
+}
+
+module.exports = countStudents;
