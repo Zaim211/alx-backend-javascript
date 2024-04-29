@@ -10,7 +10,7 @@ function countStudents(filepath) {
     for (let item = 0; item < eachline.length; item += 1) {
       if (eachline[item]) {
 	length += 1;
-        const field = eachline[i].toString().split(',');
+        const field = eachline[item].toString().split(',');
         if (Object.prototype.hasOwnProperty.call(personnes, field[3])) {
           personnes[field[3]].push(field[0]);
         } else {
