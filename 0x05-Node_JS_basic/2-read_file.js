@@ -7,6 +7,7 @@ function countStudents(filepath) {
     const eachline = dataStudents.split('\n').filter((l) => l !== '').slice(1);
     const items = eachline.map(l => l.split(','));
 
+    console.log(`Number of students: ${items.length}`);
     items.forEach((item) => {
       if (item.length === 4) {
         const [firstName, lastName, age, field] = item;
@@ -17,8 +18,6 @@ function countStudents(filepath) {
 	}
       }
     });
-
-    console.log(`Number of students: ${items.length}`);
 
     for (const field in fields) {
       if (Object.hasOwnProperty.call(fields, field)) {
