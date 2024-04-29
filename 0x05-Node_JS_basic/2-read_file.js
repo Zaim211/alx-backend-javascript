@@ -1,37 +1,36 @@
-const { readFileSync } = require('fs');
+const fs = require('fs');
 
-module.exports = function countStudents(filepath) {
-  // initialsation of items in databases
-  const personnes = {};
+function countStudents(filepath) {
   const fields = {};
-  let counter = 0;
   try {
-    const dataStudents = readFileSync(filepath, 'utf-8');
-    const eachline = dataStudents.split('\n');
-    for (let item = 0; item < eachline.length; item += 1) {
-      if (eachline[item]) {
-	counter += 1;
-        const field = eachline[item].split(',');
-        if (Object.prototype.hasOwnProperty.call(personnes, field[3])) {
-          personnes[field[3]].push(field[0]);
-        } else {
-          personnes[field[3]] = [field[0]];
-        }
-        if (Object.prototype.hasOwnProperty.call(fields, field[3])) {
-          fields[field[3]] += 1;
-        } else {
-          fields[field[3]] = 1;
-        }
+    const dataStudents = fs.readFileSync(filepath, 'utf-8');
+    const eachline = dataStudents.split('\n').filter((l) => l !== '').slice(1);
+    const items = eachline.map(l => l.split(','));
+
+    items.forEach((item) => {
+      if (item.length === 4) {
+        const [firstName, lastName, age, field] = item;
+	if (fields[field]) {
+          fields[field].push(firstName);
+	} else {
+	  fields[field] = [firstName];
+	}
+      }
+    });
+
+    console.log(`Number of students: ${items.length}`);
+
+    for (const field in fields) {
+      if (Object.hasOwnProperty.call(fields, field)) {
+        const names = fields[field].join(', ');
+        const count = fields[field].length;
+        console.log(`Number of students in ${field}: ${count}. List: ${names}`);
       }
     }
-    const count = counter - 1;
-    console.log(`Number of students: ${count}`);
-    for (const [k, v] of Object.entries(fields)) {
-      if (k !== 'field') {
-        console.log(`Number of students in ${k}: ${v}. List: ${personnes[k].join(', ')}`);
-      }
-    }
+
   } catch (error) {
     throw Error('Cannot load the database');
   }
 };
+
+module.exports = countStudents;
