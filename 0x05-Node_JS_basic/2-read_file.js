@@ -2,16 +2,17 @@
 const { readFileSync } = require('fs');
 
 function countStudents(filepath) {
+  // initialsation of items in databases
   const personnes = {};
   const fields = {};
   let length = 0;
   try {
     const dataStudents = readFileSync(filepath, 'utf-8');
-    const eachline = dataStudents.toString().split('\n');
+    const eachline = dataStudents.split('\n');
     for (let item = 0; item < eachline.length; item += 1) {
       if (eachline[item]) {
 	length += 1;
-        const field = eachline[item].toString().split(',');
+        const field = eachline[item].split(',');
         if (Object.prototype.hasOwnProperty.call(personnes, field[3])) {
           personnes[field[3]].push(field[0]);
         } else {
