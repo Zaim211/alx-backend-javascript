@@ -1,3 +1,4 @@
+#!/usr/bin/node
 const { readFileSync } = require('fs');
 
 function countStudents(filepath) {
@@ -25,7 +26,6 @@ function countStudents(filepath) {
     }
     const count = length - 1;
     console.log(`Number of students: ${count}`);
-
     for (const [k, v] of Object.entries(fields)) {
       if (k !== 'field') {
         console.log(`Number of students in ${k}: ${v}. List: ${personnes[k].join(', ')}`);
