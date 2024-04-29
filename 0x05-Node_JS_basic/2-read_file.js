@@ -12,7 +12,7 @@ function countStudents(filepath) {
 	length += 1;
         const field = eachline[i].toString().split(',');
         if (Object.prototype.hasOwnProperty.call(personnes, field[3])) {
-          students[field[3]].push(field[0]);
+          personnes[field[3]].push(field[0]);
         } else {
           personnes[field[3]] = [field[0]];
         }
@@ -23,7 +23,8 @@ function countStudents(filepath) {
         }
       }
     }
-    console.log(`Number of students: ${length -1}`);
+    const count = length - 1;
+    console.log(`Number of students: ${count}`);
 
     for (const [k, v] of Object.entries(fields)) {
       if (k !== 'field') {
