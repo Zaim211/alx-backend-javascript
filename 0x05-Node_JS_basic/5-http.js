@@ -2,7 +2,6 @@ const http = require('http');
 const { readFile } = require('fs');
 
 function countStudents(filepath) {
-  const fields = {};
   return new Promise((resolve, reject) => {
     readFile(filepath, 'utf-8', ((error, dataStudents) => {
       if (error) {
@@ -15,6 +14,7 @@ function countStudents(filepath) {
 
         outp += `Number of students: ${items.length}`;
 
+	const fields = {};
         items.forEach((item) => {
           if (item.length === 4) {
             const [firstName, lastName, age, field] = item;
@@ -42,11 +42,10 @@ function countStudents(filepath) {
 
 
 const app = http.createServer((req, res) => {
-  const url = req.url;
-  if (url === '/') {
+  if (req.url === '/') {
     res.end('Hello Holberton School!');
   }
-  if (url === '/students') {
+  if (req.url === '/students') {
     res.write('');
     countStudents(process.argv[2])
       .then((data) => res.end(`This is the list of our students\n${data}`))
