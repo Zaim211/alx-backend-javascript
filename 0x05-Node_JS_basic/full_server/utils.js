@@ -10,13 +10,13 @@ function readDatabase(pathfile) {
         const items = eachline.map(l => l.split(','));
         const fields = {};
         items.forEach((item) => {
-          if (item.length === 4) {
-            const [firstName, lastName, age, field] = item;
-	    if (fields[field]) {
-              fields[field].push(firstName);
-	    } else {
-	      fields[field] = [firstName];
-	    }
+          const firstName = item[0];
+          const field = item[3];
+
+          if (!fields[field]) {
+            fields[field] = [firstName];
+          } else {
+            fields[field].push(firstName);
           }
         });
         resolve(fields);
@@ -25,4 +25,4 @@ function readDatabase(pathfile) {
   });
 }
 
-module.exports = readDatabase;
+export default readDatabase;
