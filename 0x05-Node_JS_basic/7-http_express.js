@@ -3,12 +3,11 @@ const { readFile } = require('fs');
 
 const app = express();
 
-app.get('/', (req, res) => {
+app.get('/', ((req, res) => {
   res.send('Hello Holberton School!');
-});
+}));
 
 function countStudents(filepath) {
-  const fields = {};
   return new Promise((resolve, reject) => {
     readFile(filepath, 'utf-8', ((error, dataStudents) => {
       if (error) {
@@ -21,6 +20,7 @@ function countStudents(filepath) {
 
         outp += `Number of students: ${items.length}`;
 
+	const fields = {};
         items.forEach((item) => {
           if (item.length === 4) {
             const [firstName, lastName, age, field] = item;
@@ -46,11 +46,11 @@ function countStudents(filepath) {
   })
 };
 
-app.get('/students', (req, res) => {
+app.get('/students', ((req, res) => {
   countStudents(process.argv[2])
     .then((data) => res.send(`This is the list of our students\n${data}`))
     .catch((error) => res.send(`This is the list of our students\n${error.message}`));
-});
+}));
 
 app.listen(1245);
 
