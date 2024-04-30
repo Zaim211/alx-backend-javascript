@@ -4,13 +4,16 @@ const { readFile } = require('fs');
 function countStudents(filepath) {
   const fields = {};
   return new Promise((resolve, reject) => {
-    readFile(filepath, ((error, dataStudents) => {
+    readFile(filepath, 'utf-8', ((error, dataStudents) => {
       if (error) {
-        reject(Error('Cannot load the database'));
+        const err = new Error('Cannot load the database');
+	reject(err);
       } else {
-        const eachline = dataStudents.toString().split('\n');
+	let outp = '';
+        const eachline = dataStudents.split('\n').filter((l) => l !== '').slice(1);
         const items = eachline.map(l => l.split(','));
-	let output = '';
+
+        outp += `Number of students: ${items.length}`;
 
         items.forEach((item) => {
           if (item.length === 4) {
@@ -22,39 +25,33 @@ function countStudents(filepath) {
 	    }
           }
         });
-	output += `Number of students: ${items.length}\n`;
-        for (const [key, value] of Object.entries(fields)) {
-          if (key !== 'field') {
-            output += `Number of students in ${key}: ${value}. `;
-            output += `List: ${items[key].join(', ')}\n`;
+
+        for (const field in fields) {
+          if (Object.hasOwnProperty.call(fields, field)) {
+            const names = fields[field].join(', ');
+            const count = fields[field].length;
+            outp += `\nNumber of students in ${field}: ${count}. List: ${names}`;
           }
         }
-        resolve(output);
+
+        resolve(outp);
       }
     }));
   })
 };
 
+
 const app = http.createServer((req, res) => {
   const url = req.url;
   if (url === '/') {
-    res.writeHead(200, { 'content-type': 'text/html' });
-    res.write('Hello Holberton School!');
-    res.end();
+    res.end('Hello Holberton School!');
   }
   if (url === '/students') {
-    res.write('This is the list of our students\n');
-    countStudents(process.argv[2].toString()).then((output) => {
-      const outString = output.slice(0, -1);
-      res.end(outString);
-    }).catch(() => {
-      res.statusCode = 404;
-      res.end('Cannot load the database');
-    });
-  };
-});
-
-
-app.listen(1245);
+    res.write('');
+    countStudents(process.argv[2])
+      .then((data) => res.end(`This is the list of our students\n${data}`))
+      .catch((error) => res.end(`This is the list of our students\n${error.message}`));
+  }
+}).listen(1245);
 
 module.exports = app;
