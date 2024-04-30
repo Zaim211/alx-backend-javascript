@@ -43,13 +43,13 @@ function countStudents(filepath) {
         resolve(outp);
       }
     }));
-  })
-};
+  });
+}
 
 app.get('/students', ((req, res) => {
   countStudents(process.argv[2])
     .then((data) => res.send(`This is the list of our students\n${data}`))
-    .catch((error) => res.send(`This is the list of our students\n${error.message}`));
+    .catch((err) => res.send(`This is the list of our students\n${err.message}`));
 }));
 
 app.listen(1245);
