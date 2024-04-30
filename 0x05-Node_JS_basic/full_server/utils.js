@@ -4,11 +4,9 @@ function readDatabase(pathfile) {
   return new Promise((reject, resolve) => {
     readFile(pathfile, 'utf-8', (err, data) => {
       if (err) {
-        const error = new Error('Cannot load the database');
-	reject(error);
+	reject(err);
       } else {
-	let output = "";
-	const eachline = dataStudents.split('\n').filter((l) => l !== '').slice(1);
+	const eachline = data.split('\n').filter((l) => l !== '').slice(1);
         const items = eachline.map(l => l.split(','));
         const fields = {};
         items.forEach((item) => {
@@ -21,7 +19,7 @@ function readDatabase(pathfile) {
 	    }
           }
         });
-        resolve(output);
+        resolve(fields);
       }
     });
   });
