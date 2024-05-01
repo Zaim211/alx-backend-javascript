@@ -6,9 +6,11 @@ const assert = require("assert");
 
 describe("sendPaymentRequestToApi", function() {
   it("checks Utils.calculateNumber will only be called once", function() {
-    const spie = sinon.spy(Utils, 'calculateNumber');
+    const stubs = sinon.stub(Utils, 'calculateNumber').returns(10);
+    const spie= sinon.spy(console, 'log');
+
     sendPaymentRequestToApi(100, 20);
-    assert(spie.calledOnce);
-    spie.restore();
+    assert(stubs.withArgs('SUM', 100, 20).calledOnce);
+    assert(spie.withArgs('The total is: 10').calledOnce);
   });
 });
