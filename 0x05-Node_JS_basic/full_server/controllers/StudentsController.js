@@ -19,9 +19,14 @@ class StudentsController {
   }
 
   static getAllStudentsByMajor(request, response) {
-    const {major} = request.params;
+    const req = request.params.major;
     readDatabase(process.argv[2]).then((fields) => {
-      response.send(`List: ${fields[major].join(', ')}`);
+      if (!(req in fields)) {
+        response.status(500).send('Major parameter must be CS or SWE');
+      } else {
+        response.status(200).send(`List: ${fields[req].join(', ')}`);
+      }
+      // response.send(`List: ${fields[major].join(', ')}`);
     }).catch(() => {
       response.status(500).send('Cannot load the database');
     });
