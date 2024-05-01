@@ -20,6 +20,7 @@ module.exports = function countStudents(path) {
       }
     });
 
+
     for (const field in fields) {
       if (Object.hasOwnProperty.call(fields, field)) {
         const names = fields[field].join(', ');
