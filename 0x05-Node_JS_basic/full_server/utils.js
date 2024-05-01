@@ -1,7 +1,7 @@
 const { readFile } = require('fs');
 
 function readDatabase(pathfile) {
-  return new Promise((reject, resolve) => {
+  return new Promise((resolve, reject) => {
     readFile(pathfile, 'utf-8', (err, data) => {
       if (err) {
 	reject(err);
