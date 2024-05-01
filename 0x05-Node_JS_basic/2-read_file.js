@@ -1,11 +1,11 @@
-#!/bin/usr/node
+#!/usr/bin/node
 const fs = require('fs');
 
 function countStudents(filepath) {
   try {
-    const dataStudents = fs.readFileSync(filepath, 'utf-8');
-    const eachline = dataStudents.split('\n').filter((l) => l !== '').slice(1);
-    const items = eachline.map(l => l.split(','));
+    const data = fs.readFileSync(filepath, 'utf-8');
+    const lines = data.split('\n').filter((line) => line !== '').slice(1);
+    const items = lines.map(line => line.split(','));
 
     console.log(`Number of students: ${items.length}`);
 
